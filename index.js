@@ -1,26 +1,30 @@
 
-const loginForm = document.getElementById("login-form");
-const loginButton = document.getElementById("login-form-submit");
-const loginErrorMsg = document.getElementById("login-error-msg");
+ const navbar = document.getElementById("navbar");
+const navbarToggle = navbar.querySelector(".navbar-toggle");
 
-loginButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const username = loginForm.username.value;
-    const password = loginForm.password.value;
-
-    if (username === "user" && password === "web_dev") {
-        alert("You have successfully logged in.");
-        location.reload();
-    } else {
-        loginErrorMsg.style.opacity = 1;
-    }
-})
-
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
+function openMobileNavbar() {
+  navbar.classList.add("opened");
+  navbarToggle.setAttribute("aria-label", "Close navigation menu.");
 }
+
+function closeMobileNavbar() {
+  navbar.classList.remove("opened");
+  navbarToggle.setAttribute("aria-label", "Open navigation menu.");
+}
+
+navbarToggle.addEventListener("click", () => {
+  if (navbar.classList.contains("opened")) {
+    closeMobileNavbar();
+  } else {
+    openMobileNavbar();
+  }
+});
+
+const navbarMenu = navbar.querySelector(".navbar-menu");
+const navbarLinksContainer = navbar.querySelector(".navbar-links");
+
+navbarLinksContainer.addEventListener("click", (clickEvent) => {
+  clickEvent.stopPropagation();
+});
+
+navbarMenu.addEventListener("click", closeMobileNavbar);
